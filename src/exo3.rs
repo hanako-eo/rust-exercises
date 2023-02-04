@@ -1,6 +1,6 @@
 //! ## Refs, Pointers et Smarts Pointers
 //!
-//! Deja, une reference et un pointeur sont exactement la meme chose, c'est une type de donner qui est pour l'ordinateur un nombre qui dire "la vrai valeur est dans cette emplacement memoire".
+//! Deja, une reference et un pointeur sont exactement la meme chose, c'est une type de donnée qui est pour l'ordinateur un nombre qui dire "la vrai valeur est dans cette emplacement memoire".
 //! Ceci dit les pointeurs et les refs du point de vue du compilateur ne sont pas les mêmes chose, un pointeur est dit "unsafe", car sont usage n'est pas protégé par rust, il est donc tres facile d'optenir des erreurs du style "segmentation fault" ce qui n'est pas possible avec les refs.
 //! Ici nous n'allons pas plus parler des pointeurs car c'est un sujet qui demande une meilleur connaissance du fonctionnement du compilateur Rust, mais pour apprendre plus en profondeur le rust et aller plus long je conseille de travailler avec [rust en mode no_std](https://docs.rust-embedded.org/book/intro/no-std.html).
 //!
@@ -41,7 +41,7 @@
 //!
 //! /!\ Ici nous ne parlerons pas des smarts pointers thread safe car tout ce qui a été dit pour le moment n'est pas utilisable dans plusieur thread.
 //!
-//! Dans cette exo il va valoir faire une link list dans le but de travailler les smarts pointers.
+//! Dans cette exo il va falloir faire une link list dans le but de travailler les smarts pointers.
 
 struct Node {
     value: i32,
@@ -93,6 +93,24 @@ fn link_list_loop() {
     assert_eq!(list.len(), 4);
 
     while let Some(n) = list.next() {
+        assert_eq!(results.next(), Some(n));
+    }
+}
+
+// si pour faire next tu as utilise le trait Iterator, bravo, ce test va passer sans que tu n'es rien a faire.
+// pour rust si tu implementes Iterator, le boucle for est un sucre syntaxique a la boucle while du test d'avant
+#[test]
+fn link_list_loop_for() {
+    let mut results = vec![1, 2, 3, 4].into_iter();
+    let mut list = List::new();
+    list.push(1);
+    list.push(2);
+    list.push(3);
+    list.push(4);
+
+    assert_eq!(list.len(), 4);
+
+    for n in list {
         assert_eq!(results.next(), Some(n));
     }
 }

@@ -10,7 +10,7 @@ enum Option<Type> {
     None,
 }
 
-// il est important de savoir qu'un enum peut aussi implementer c'est propre methode comme tous les types de donner
+// il est important de savoir qu'un enum peut aussi implementer c'est propre methode comme tous les types de donnée
 // cette implementation est faite plus pour montrer, elle n'a pas d'autre interer que ca
 impl<Type> Option<Type> {
     // c'est trois implementation de unwrap marche de la même manière
@@ -31,6 +31,7 @@ impl<Type> Option<Type> {
     fn unwrap2(self) -> Type {
         // le if let est comme un if en rust mais il ne peut être utiliser uniquement pour une valeur à la fois,
         // surtout utiliser dans le cadre ou on souhaite ne prendre en charge qu'un seule cas
+        // elle est utile pour faire sortir une valeur contenu dans membre de l'enum, c'est equivalent a une destructuration
         if let Self::Some(value) = self {
             value
         } else {
@@ -41,6 +42,7 @@ impl<Type> Option<Type> {
     fn unwrap3(self) -> Type {
         // cette syntaxe est arrivé vers la 1.65 pour plus d'info sur le let else je vous conseil d'aller lire https://rust-lang.github.io/rfcs/3137-let-else.html
         // pour faire simple, let expression = resultat else { code de sortie de la function }
+        // elle est utile dans les même cas que le if let mais pers de rendre le code plus claire et de retirer une indentation
         let Self::Some(value) = self else {
             panic!("attempt to Some not None")
         };

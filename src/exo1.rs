@@ -6,7 +6,7 @@
 //!  - enum
 //!  - union
 //!
-//! Et pour le rust c'est pareille, il y a exactement les memes type de donner.
+//! Et pour le rust c'est pareille, il y a exactement les memes type de donnée.
 //! Il peut donc arriver en C de devoir ecrire ce genre de chose:
 //! ```
 //! enum DiscordStatus {
@@ -55,8 +55,8 @@
 //! ```
 //! Dans ce cas les deux codes reste identique mais si l'on decide par exemple de prendre une string si l'état est Custom ou Listening et un objet quelconque si l'état est Playing et rien pour No.
 //! Avec le C se qui va changer c'est le `char*` en `void*` mais comment fait-on pour le rust ?
-//! En rust, les enums ont une particularité, ils ont le même usage que les unions et les enum de C, mais pourquoi ? Déjà il est conseillé d'utiliser les unions uniquement dans le cadre des [FFI](https://doc.rust-lang.org/nightly/std/ffi/index.html).
-//! Les enums ont la possibilité d'avoir des valeurs specifiques selon l'état, avec l'example d'au dessus ca donne :
+//! En rust, les enums ont une particularité, ils ont le même usage que les unions et les enum de C, mais pourquoi ? Déjà, il est conseillé d'utiliser les unions uniquement dans le cadre des [FFI](https://doc.rust-lang.org/nightly/std/ffi/index.html).
+//! Les enums ont la possibilité d'avoir des valeurs spécifiques selon l'état, avec l'exemple d'au-dessus ça donne :
 //! ```
 //! struct Quelconque;
 //!
@@ -69,7 +69,9 @@
 //! ```
 //! Une quesion qui vous vient surement c'est pourquoi ça ? La réponse est Rust est un language strictement typé en plus de vouloir permettre une safety au niveau de la mémoire.
 //!
-//! Ok pour comprendre un peu plus en detail, allez dans le fichier `enum.rs`
+//! Ok pour comprendre un peu plus en detail, allez dans le fichier `enum.rs`.
+//!
+//! Dans cette exo, il va falloir faire un enum qui va contenir SOIT un nombre (i32) ou une string (String) et permettre de pouvoir le parser depuis une chaine de caractères dans le but de travailler les enums.
 
 enum Types {}
 
@@ -86,13 +88,13 @@ pub fn main() {}
 #[test]
 fn type_parsing_once() {
     let parsed = Types::parse_once("123".to_string());
-    assert_eq!(parsed, Types::Number(123i32));
+    assert_eq!(parsed, Types::Number(123));
 
     let parsed = Types::parse_once("a123".to_string());
-    assert_eq!(parsed, Types::Word("a123"));
+    assert_eq!(parsed, Types::Word("a123".to_string()));
 
     let parsed = Types::parse_once("123a".to_string());
-    assert_eq!(parsed, Types::Word("123a"));
+    assert_eq!(parsed, Types::Word("123a".to_string()));
 
     let parsed = Types::parse_once("azerty".to_string());
     assert_eq!(parsed, Types::Word("azerty".to_string()));
@@ -132,28 +134,18 @@ fn type_parsing_many() {
         parsed,
         vec![
             Types::Word("a".to_string()),
-            Types::Word("b".to_string())
+            Types::Word("b".to_string()),
             Types::Word("c".to_string())
         ]
     );
 
-    // OPTIONEL !
+    // OPTIONNEL !
     // let parsed = Types::parse_many("a   b  c".to_string());
     // assert_eq!(
     //     parsed,
     //     vec![
     //         Types::Word("a".to_string()),
-    //         Types::Word("b".to_string())
-    //         Types::Word("c".to_string())
-    //     ]
-    // );
-
-    // let parsed = Types::parse_many("'a ' b c".to_string());
-    // assert_eq!(
-    //     parsed,
-    //     vec![
-    //         Types::Word("a ".to_string()),
-    //         Types::Word("b".to_string())
+    //         Types::Word("b".to_string()),
     //         Types::Word("c".to_string())
     //     ]
     // );
