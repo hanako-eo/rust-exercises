@@ -1,13 +1,14 @@
 //! ## Refs, Pointers et Smarts Pointers
 //!
-//! Deja, une reference et un pointeur sont exactement la meme chose, c'est une type de donnée qui est pour l'ordinateur un nombre qui dire "la vrai valeur est dans cette emplacement memoire".
-//! Ceci dit les pointeurs et les refs du point de vue du compilateur ne sont pas les mêmes chose, un pointeur est dit "unsafe", car sont usage n'est pas protégé par rust, il est donc tres facile d'optenir des erreurs du style "segmentation fault" ce qui n'est pas possible avec les refs.
+//! Déjà, une reference et un pointeur sont exactement la meme chose, c'est une type de donnée qui est pour l'ordinateur un nombre qui dire "la vrai valeur est dans cette emplacement memoire".
+//! Ceci dit les pointeurs et les refs du point de vue du compilateur ne sont pas les mêmes chose, un pointeur est dit "unsafe", car sont usage n'est pas protégé par rust, il est donc trés facile d'obtenir des erreurs du style "segmentation fault" ce qui n'est pas possible avec les refs.
 //! Ici nous n'allons pas plus parler des pointeurs car c'est un sujet qui demande une meilleur connaissance du fonctionnement du compilateur Rust, mais pour apprendre plus en profondeur le rust et aller plus long je conseille de travailler avec [rust en mode no_std](https://docs.rust-embedded.org/book/intro/no-std.html).
+//! Il est aussi possibles qu'à l'avenir je puisse faire un exercice dessus.
 //!
-//! Les refs fonctionnent de la meme maniere en C++ et en Rust. Les grandes differances entre les deux langages sur l'usage de ceci.
+//! Les refs fonctionnent de la même maniere en C++ et en Rust. Les grandes differances entre les deux langages sont sur l'usage de ceci.
 //! Le principe de ownership et la base meme du fonctionnement de Rust.
-//! Pour comprendre peut-être plus simplement le systeme de ownership avec des smarts pointer et du code C++, je recommande cette video (<https://youtu.be/7EcNkr6KFy0?t=35>).
-//! Pour rapidement essayer d'expliquer comment cela fonctionne, une owner variable est une variable qui va contenir la vrai valeur. Par exemple
+//! Pour comprendre peut-être plus simplement le systeme de ownership avec des smarts pointer et du code C++, je recommande cette video (<https://youtu.be/7EcNkr6KFy0?t=35> attention elle est en anglais).
+//! Pour rapidement essayer d'expliquer comment cela fonctionne, une owner variable est une variable qui va contenir la vrai valeur. Par exemple :
 //!
 //! ```
 //! let string1 = String::from("Hello");
@@ -15,8 +16,8 @@
 //! println!("{}", string1): // error[E0382]: borrow of moved value: `string1`
 //! ```
 //!
-//! Rust a dans l'ordre, creer une variable string1 et y a strocker "Hello".
-//! Puis, il a cree une nouvelle variable string2 et y a copier la valeur de string1 **ET** a vidé string1.
+//! Rust va dans l'ordre, créer une variable string1 et y strocker "Hello".
+//! Puis, il va créer une nouvelle variable string2 et y copier la valeur de string1 **ET** vider string1.
 //! C'est ce que l'on appelle move une valeur.
 //! Si je veux corriger mon programme alors je vais faire :
 //!
@@ -26,7 +27,7 @@
 //! println!("{}", string1): // ok
 //! ```
 //!
-//! Le & va créé une reference vers string1, string2 va être capable de travailer uniquement avec par lecture (&mut pour pouvoir modifier l'objet de base. A noté que rust autorise un cast `&mut T => &T` mais pas l'inverse).
+//! Le & va créé une reference vers string1, string2 va être capable de travailer uniquement avec par lecture (`&mut` pour pouvoir modifier l'objet de base. A noté que rust autorise un cast `&mut T as &T` mais pas l'inverse).
 //!
 //! ### Les smarts pointers
 //!
@@ -41,7 +42,7 @@
 //!
 //! /!\ Ici nous ne parlerons pas des smarts pointers thread safe car tout ce qui a été dit pour le moment n'est pas utilisable dans plusieur thread.
 //!
-//! Dans cette exo il va falloir faire une link list dans le but de travailler les smarts pointers.
+//! Dans cette exo il va falloir faire une link list dans le but de travailler les smarts pointers. (Box, d'autre exo seront reservés pour le reste des smarts pointers)
 
 struct Node {
     value: i32,

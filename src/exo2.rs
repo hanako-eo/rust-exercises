@@ -25,7 +25,7 @@
 //!     fn hi_generic() -> T;
 //! }
 //! ```
-//! Il est aussi possible de voir cette syntaxe
+//! Il est aussi possible de voir cette syntaxe.
 //! ```
 //! trait HelloTyped {
 //!     type Item;
@@ -37,7 +37,7 @@
 //! Pour des besoins de simplicité, je vais simplement raccourcir et expliquer que pour un même struct, il est possible si `T` est différant, d'implémenter autant de `HelloGenerique` que l'on souhaite, mais que pour la version avec les types (`HelloTyped` dans l'exemple) il n'est possible pour un même struct d'implémenter 2 fois `HelloTyped` même si `Item` change.
 //! Pour nous, il va nous falloir utiliser le trait [Iterator](https://doc.rust-lang.org/std/iter/trait.Iterator.html).
 //!
-//! A savoir qu'il est aussi possible de donnée une implementation par defaut a une methode :
+//! A savoir qu'il est aussi possible de donnée une implementation par defaut a une méthode :
 //!
 //! ```
 //! struct MyHello {}
