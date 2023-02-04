@@ -7,7 +7,7 @@
 //!  - union
 //!
 //! Et pour le rust c'est pareille, il y a exactement les memes type de donnée.
-//! Il peut donc arriver en C de devoir ecrire ce genre de chose:
+//! Il peut donc arriver en C de devoir écrire ce genre de chose:
 //! ```
 //! enum DiscordStatus {
 //!     Playing,
@@ -16,7 +16,7 @@
 //!     No
 //! };
 //! ```
-//! Hors, en Rust comment on l'ecrit ?
+//! Hors, en Rust comment on l'écrit ?
 //! ```
 //! enum DiscordStatus {
 //!     Playing,
@@ -53,7 +53,7 @@
 //!     value: String
 //! }
 //! ```
-//! Dans ce cas les deux codes reste identique mais si l'on decide par exemple de prendre une string si l'état est Custom ou Listening et un objet quelconque si l'état est Playing et rien pour No.
+//! Dans ce cas les deux codes reste identique mais si l'on decide par exemple de prendre une string si l'état est Custom ou Listening, un objet quelconque si l'état est Playing et rien pour No. Comment ça va se passer ?
 //! Avec le C se qui va changer c'est le `char*` en `void*` mais comment fait-on pour le rust ?
 //! En rust, les enums ont une particularité, ils ont le même usage que les unions et les enum de C, mais pourquoi ? Déjà, il est conseillé d'utiliser les unions uniquement dans le cadre des [FFI](https://doc.rust-lang.org/nightly/std/ffi/index.html).
 //! Les enums ont la possibilité d'avoir des valeurs spécifiques selon l'état, avec l'exemple d'au-dessus ça donne :

@@ -17,13 +17,13 @@ fn set_during_get() {
 
 #[test]
 fn update_cell() {
-    let x = Cell::new("hello");
+    let x = Cell::new(1);
     let first = x.get();
 
-    x.update(|s| format!("{} 1", s).as_str());
+    x.update(|i| i + 1);
 
-    assert_eq!(first, "hello");
-    assert_ne!(x.get(), "hello 1");
+    assert_eq!(first, 1);
+    assert_eq!(x.get(), 2);
 }
 
 #[test]
@@ -41,17 +41,21 @@ fn swap_value_between_cells() {
 fn unwrap_cell() {
     let a = Cell::new("hello");
     let b = a.into_inner();
-    let c: &str = a.into();
+
+    let c = Cell::new("hello");
+    let d: &str = c.into();
 
     assert_eq!(a.get(), b);
-    assert_eq!(b, c);
+    assert_eq!(c.get(), d);
 
-    let x = Cell::new(2);
-    let y = x.into_inner();
-    let z: i32 = x.into();
+    let w = Cell::new(2);
+    let x = w.into_inner();
 
-    assert_eq!(x.get(), y);
-    assert_eq!(y, z);
+    let y = Cell::new(2);
+    let z: i32 = w.into();
+
+    assert_eq!(w.get(), x);
+    assert_eq!(y.get(), z);
 }
 
 #[test]
